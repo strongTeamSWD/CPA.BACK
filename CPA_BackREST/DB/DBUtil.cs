@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.DataProtection;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Npgsql;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,10 +9,17 @@ using System.Web.Helpers;
 
 namespace CPA_BackREST.DB
 {
+ 
+
+
+
     public class DBUtil
     {
-        private MySql.Data.MySqlClient.MySqlConnection connection;
-        string myConnectionString = "server=127.0.0.1;port=3306;uid=root;sslmode = none;database=greetgo";
+        string myConnectionString = "server=127.0.0.1;password=e12r04s97;port=1313; uid = postgres;database=CPA_DB";
+        // Making connection with Npgsql provider
+        NpgsqlConnection conn;
+
+
 
         public readonly IDataProtector protector = null;
 
@@ -19,32 +28,19 @@ namespace CPA_BackREST.DB
             protector = provider.CreateProtector(GetType().FullName);
             try
             {
-                connection = new MySql.Data.MySqlClient.MySqlConnection
-                {
-                    ConnectionString = myConnectionString
-                };
-                connection.Open();
+                conn = new NpgsqlConnection(myConnectionString);
+                conn.Open();
             }
             catch (MySql.Data.MySqlClient.MySqlException ex)
             {
                 Console.Write(ex.ToString());
-                connection = null;
+                conn = null;
             }
         }
 
-        public MySql.Data.MySqlClient.MySqlConnection GetConn()
+        public NpgsqlConnection GetConn()
         {
-            return connection;
-        }
-
-        public MySql.Data.MySqlClient.MySqlCommand CreateCmd(string sql)
-        {
-            return new MySql.Data.MySqlClient.MySqlCommand(sql, this.connection);
-        }
-
-        public string ecryptPsw(string password)
-        {
-            return password;
+            return conn;
         }
     }
 }

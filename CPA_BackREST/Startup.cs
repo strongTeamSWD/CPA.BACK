@@ -7,6 +7,7 @@ using CPA_BackREST.Repositories;
 using CPA_BackREST.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -27,9 +28,11 @@ namespace CPA_BackREST
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            services.AddTransient<UserRepository>();
+            services.AddTransient<RepositoryFactory>();
             services.AddTransient<DBUtil>();
             services.AddTransient<UserService>();
+            services.AddCors();
+
         }
 
 
@@ -40,6 +43,12 @@ namespace CPA_BackREST
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors(builder =>
+                   builder.AllowAnyOrigin().AllowAnyHeader()
+               .AllowAnyMethod()
+               .AllowAnyHeader());
+
 
             app.UseMvc();
         }

@@ -13,7 +13,7 @@ namespace CPA_BackREST.Controllers
         public string login { get; set; }
         public string password { get; set; }
     }
-
+    
     [Route("api/[controller]")]
     public class AuthController : Controller
     {
@@ -25,17 +25,30 @@ namespace CPA_BackREST.Controllers
 
         // POST: api/Auth
             [HttpPost("login")]
-        public User Auth([FromBody] AuthParam param)
+        public Users AuthUser([FromBody] AuthParam param)
         {
+            if(param!=null)
             return userService.GetUserByLoginPass(param.login, param.password);
+
+            return null;
         }
 
         // POST: api/Auth
         [HttpPost("register")]
-        public long Register([FromBody] User newUser)
+        public long RegisterUser([FromBody] Users newUser)
         {
             return userService.RegisterUser(newUser);
         }
 
+        [HttpPost("update")]
+        public bool UpdateUser([FromBody] Users user) {
+            return userService.UpdateUser(user);
+        }
+
+        [HttpPost("delete")]
+        public bool DeleteUser([FromBody] Users user)
+        {
+            return userService.UpdateUser(user);
+        }
     }
 }

@@ -6,13 +6,13 @@ using Vega;
 
 namespace CPA_BackREST.Models
 {
-
     [Table(NeedsHistory = false, NoUpdatedOn = true, NoCreatedBy = true, NoCreatedOn = true, NoVersionNo = true, NoIsActive = false, NoUpdatedBy = true)]
-    public class Roles : EntityBase
+    public class Level : EntityBase
     {
         [PrimaryKey(true)]
-        [ForeignKey("Users","RoleId",true)]
+        [ForeignKey("Webmaster", "LevelId", true)]
         public long Id { get; set; }
         public string Name { get; set; }
+
     }
 }

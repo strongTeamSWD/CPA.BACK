@@ -1,34 +1,44 @@
-﻿using CPA_BackREST.Models;
+﻿using CPA_BackREST.DB;
+using CPA_BackREST.Models;
 using CPA_BackREST.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Vega;
 
 namespace CPA_BackREST.Services
 {
 
     public class UserService
     {
-        UserRepository userRepository;
+        RepositoryFactory repositoryFactory;
 
-        public UserService(UserRepository userRepository) {
-            this.userRepository = userRepository;
+        Repository<Users> userRepository;
+        Repository<Roles> roleRepository;
+        
+        public UserService(RepositoryFactory repositoryFactory) {
+            this.repositoryFactory = repositoryFactory;
+
+            userRepository = repositoryFactory.GetUserRepostory();
+            roleRepository = repositoryFactory.GetRolesRepostory();
         }
 
-        public User GetUserByLoginPass(string login,string password) {
-            return userRepository.GetByLoginPassword(login,password);
+        void RecreateDB() {
+            repositoryFactory.GetRolesRepostory().CreateTable();
+            repositoryFactory.GetUserRepostory().CreateTable();
         }
 
-        public long RegisterUser(User newUser)
-        {
-            if(newUser.login != null && newUser.password != null && newUser.name != null
-                && newUser.surname != null && newUser.email != null)
-            {
-                return userRepository.insertUser(newUser);
-            }
+        public Users GetUserByLoginPass(string login, string password) {
+            return userRepository.ReadOne("login=@Login and password=@Password", new { Login = login, Password = password });
+        }
 
-            return -1;
+        public long RegisterUser(Users newUser){
+            return (long)userRepository.Add(newUser);
+        }
+
+        public bool UpdateUser(Users user) {
+            return userRepository.Update(user);
         }
     }
 }
