@@ -10,8 +10,8 @@ namespace CPA_BackREST.Models
     public class Users : EntityBase
     {
         [PrimaryKey(true)]
-        [ForeignKey("Source","userId",true)]
-        [ForeignKey("Webmaster","userId",true)]
+        [ForeignKey("Source","UserId",true)]
+        [ForeignKey("Webmaster","UserId",true)]
         public long     Id { get; set; }
         public long     Gender_id { get; set; }
         
@@ -25,6 +25,6 @@ namespace CPA_BackREST.Models
         public string   Email { get; set; }
         public string   PhoneNumber { get; set; }
 
-        public bool IsActive { get; set; }
+        public override bool IsActive { get; set; }
     }
 }

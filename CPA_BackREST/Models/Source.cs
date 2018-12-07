@@ -6,7 +6,7 @@ using Vega;
 
 namespace CPA_BackREST.Models
 {
-    [Table(NeedsHistory = false, NoUpdatedOn = true, NoCreatedBy = true, NoCreatedOn = true, NoVersionNo = true, NoIsActive = false, NoUpdatedBy = true)]
+    [Table(NeedsHistory = false, NoUpdatedOn = true, NoCreatedBy = true, NoCreatedOn = true, NoVersionNo = true, NoUpdatedBy = true)]
     public class Source : EntityBase
     {
         [PrimaryKey(true)]
@@ -16,6 +16,7 @@ namespace CPA_BackREST.Models
         public string Name { get; set; }
         public string Description { get; set; }
         public string Url { get; set; }
+        public override bool IsActive { get; set; }
         public long TypeId { get; set; }
     }
 }

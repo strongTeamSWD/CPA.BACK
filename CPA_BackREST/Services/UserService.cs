@@ -20,13 +20,13 @@ namespace CPA_BackREST.Services
         public UserService(RepositoryFactory repositoryFactory) {
             this.repositoryFactory = repositoryFactory;
 
-            userRepository = repositoryFactory.GetUserRepostory();
-            roleRepository = repositoryFactory.GetRolesRepostory();
+            userRepository = repositoryFactory.GetRepository(typeof(Users)) as Repository<Users>;
+            roleRepository = repositoryFactory.GetRepository(typeof(Roles)) as Repository<Roles>; ;
         }
 
         void RecreateDB() {
-            repositoryFactory.GetRolesRepostory().CreateTable();
-            repositoryFactory.GetUserRepostory().CreateTable();
+            userRepository.CreateTable();
+            roleRepository.CreateTable();
         }
 
         public Users GetUserByLoginPass(string login, string password) {

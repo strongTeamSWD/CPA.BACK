@@ -17,22 +17,18 @@ namespace CPA_BackREST.Models
 
         public List<Aim> aims { get; set;}
         public List<GeoTarget> geoTargets {get;set;}
+        public long LevelId { get; set; }
 
-
-        public bool IsActive { get; set; }
+        
+        public override bool IsActive { get; set; }
         public long MinLevel { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime FinishDate { get; set; }
     }
 
-    [Table(NeedsHistory = false, NoUpdatedOn = true, NoCreatedBy = true, NoCreatedOn = true, NoVersionNo = true, NoIsActive = false, NoUpdatedBy = true)]
-    public class GeoTarget
-    {
-
-    }
 
 [Table(NeedsHistory = false, NoUpdatedOn = true, NoCreatedBy = true, NoCreatedOn = true, NoVersionNo = true, NoIsActive = false, NoUpdatedBy = true)]
-    public class Aim
+    public class Aim : EntityBase
     {
         [PrimaryKey(true)]
         public long Id { get; set; }

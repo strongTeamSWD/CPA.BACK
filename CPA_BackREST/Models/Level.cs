@@ -11,6 +11,7 @@ namespace CPA_BackREST.Models
     {
         [PrimaryKey(true)]
         [ForeignKey("Webmaster", "LevelId", true)]
+        [ForeignKey("Offer", "LevelId", true)]
         public long Id { get; set; }
         public string Name { get; set; }
 

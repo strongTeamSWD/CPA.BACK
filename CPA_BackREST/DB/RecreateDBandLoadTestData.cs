@@ -13,14 +13,5 @@ namespace CPA_BackREST.DB
         {
             this.repositoryFactory = repositoryFactory;
         }
-
-
-        public void RecreateDB() {
-            repositoryFactory.GetRolesRepostory().DropTable();
-            repositoryFactory.GetRolesRepostory().CreateTable();
-
-            repositoryFactory.GetUserRepostory().DropTable();
-            repositoryFactory.GetUserRepostory().CreateTable();
-        }
     }
 }
