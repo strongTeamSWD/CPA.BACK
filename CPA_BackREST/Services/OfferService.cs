@@ -18,6 +18,23 @@ namespace CPA_BackREST.Services
         public OfferService(RepositoryFactory repositoryFactory)
         {
             this.repositoryFactory = repositoryFactory;
+            offerRepository = repositoryFactory.GetRepository(typeof(Offer)) as Repository<Offer>;
+            geotargetRepository = repositoryFactory.GetRepository(typeof(GeoTarget)) as Repository<GeoTarget>;
+            offerRepository.CreateTable();
+            
+            CreateTestData();
+        }
+
+        public void CreateTestData() {
+            Offer offer = new Offer();
+            offer.Name = "TEEST";
+            offer.Description = "TEEST";
+            offer.MinLevel = 1l ;
+            offer.LevelId = 2l;
+            offer.StartDate = DateTime.Today;
+            offer.FinishDate = DateTime.Today;
+
+            offerRepository.Add(offer);
         }
 
         public long CreateOffer(Offer newOffer)

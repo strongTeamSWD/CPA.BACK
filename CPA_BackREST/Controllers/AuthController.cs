@@ -25,10 +25,20 @@ namespace CPA_BackREST.Controllers
 
         // POST: api/Auth
             [HttpPost("login")]
-        public Users AuthUser([FromBody] AuthParam param)
+        public UserDetail AuthUser([FromBody] AuthParam param)
         {
-            if(param!=null)
-            return userService.GetUserByLoginPass(param.login, param.password);
+            if (param != null)
+            {
+                UserDetail userDetail = new UserDetail();
+                Users user = userService.GetUserByLoginPass(param.login, param.password);
+
+                userDetail.Guid = user.Id.ToString();
+                userDetail.Token = user.Id.ToString() + DateTime.Today.GetHashCode();
+                userDetail.Login = user.Login;
+
+                return userDetail;
+
+            }
 
             return null;
         }

@@ -9,9 +9,10 @@ namespace CPA_BackREST.Models
     [Table(NeedsHistory = false, NoUpdatedOn= true,NoCreatedBy = true, NoCreatedOn = true, NoVersionNo = true, NoIsActive = false,NoUpdatedBy = true)]
     public class Users : EntityBase
     {
+
+        //   [ForeignKey("Source","UserId",true)]
+        //   [ForeignKey("Webmaster","UserId",true)]
         [PrimaryKey(true)]
-        [ForeignKey("Source","UserId",true)]
-        [ForeignKey("Webmaster","UserId",true)]
         public long     Id { get; set; }
         public long     Gender_id { get; set; }
         

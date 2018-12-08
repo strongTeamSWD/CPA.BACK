@@ -31,6 +31,8 @@ namespace CPA_BackREST
             services.AddTransient<RepositoryFactory>();
             services.AddTransient<DBUtil>();
             services.AddTransient<UserService>();
+            services.AddTransient<OfferService>();
+            services.AddTransient<EncryptService>();
             services.AddCors();
 
         }
